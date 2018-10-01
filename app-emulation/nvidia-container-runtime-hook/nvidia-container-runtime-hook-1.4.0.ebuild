@@ -25,16 +25,18 @@ echo $PV
 echo ${WORKDIR}/${PN}-${PV}-1/hook/nvidia-container-runtime-hook
 echo -----------------------
 
-src_prepare() {
-	eapply_user
-	true;
-	}
-
 src_unpack() {
 	default
 	mkdir -p src/${GO_PN} || die
-	mv ${WORKDIR}/nvidia-container-runtime-${PV}-1/hook/nvidia-container-runtime-hook src/${GO_PN} || die
+	mv ${WORKDIR}/nvidia-container-runtime-${PV}-1 ${WORKDIR}/nvidia-container-runtime-hook-${PV}
+	mv ${WORKDIR}/nvidia-container-runtime-hook-${PV}/hook/nvidia-container-runtime-hook src/${GO_PN} || die
 }
+
+src_prepare() {
+	eapply_user
+	return
+}
+
 
 src_configure() {
  true;
