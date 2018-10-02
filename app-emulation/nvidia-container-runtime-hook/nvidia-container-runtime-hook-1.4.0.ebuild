@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit golang-base
+inherit golang-base golang-build
 
 GO_PN=github.com/nvidia/nvidia-container-runtime/hook
 
@@ -27,9 +27,7 @@ echo -----------------------
 
 src_unpack() {
 	default
-	mkdir -p src/${GO_PN} || die
-	mv ${WORKDIR}/nvidia-container-runtime-${PV}-1 ${WORKDIR}/nvidia-container-runtime-hook-${PV}
-	mv ${WORKDIR}/nvidia-container-runtime-hook-${PV}/hook/nvidia-container-runtime-hook src/${GO_PN} || die
+	mv ${WORKDIR}/nvidia-container-runtime-${PV}-1/hook/nvidia-container-runtime-hook ${S}
 }
 
 src_prepare() {
@@ -37,19 +35,15 @@ src_prepare() {
 	return
 }
 
-
-src_configure() {
- true;
-}
-
 src_compile() {
- true;
-}
-
-src_test() {
- true;
+	pushd ${S} || die
+	GOPATH="${WORKDIR}/${P}:$(get_golibdir_gopath)" go get github.com/BurntSushi/toml || die
+	GOPATH="${WORKDIR}/${P}:$(get_golibdir_gopath)" go build -o ${PN} . || die
+	popd || die
 }
 
 src_install() {
-	return
+	pushd ${S} || die
+	dobin ${PN}
+	popd || die
 }
