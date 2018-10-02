@@ -1,0 +1,29 @@
+From f008ed182c357b828af1536ba6e26fceade19d7d Mon Sep 17 00:00:00 2001
+From: Rafael Palomar <rafael.palomar@rr-research.no>
+Date: Tue, 2 Oct 2018 12:29:59 +0200
+Subject: [PATCH] Bug fix on building with TIRPC
+
+---
+ Makefile | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 0af8123..542c746 100644
+--- a/Makefile
++++ b/Makefile
+@@ -149,6 +149,12 @@ BIN_CFLAGS         = -I$(SRCS_DIR) -fPIE -flto $(CFLAGS)
+ BIN_LDFLAGS        = -L. -pie $(LDFLAGS) -Wl,-rpath='$$ORIGIN/../$$LIB'
+ BIN_LDLIBS         = -l:$(LIB_SHARED) -lcap $(LDLIBS)
+ 
++ifeq ($(WITH_TIRPC), yes)
++BIN_CPPFLAGS       += -isystem $(DEPS_DIR)$(includedir)/tirpc -DWITH_TIRPC
++BIN_LDLIBS_STATIC  += -l:libtirpc.a
++BIN_LDLIBS_SHARED  += -lpthread
++endif
++
+ $(word 1,$(LIB_RPC_SRCS)): RPCGENFLAGS=-h
+ $(word 2,$(LIB_RPC_SRCS)): RPCGENFLAGS=-c
+ $(word 3,$(LIB_RPC_SRCS)): RPCGENFLAGS=-m
+-- 
+2.16.4
+
