@@ -13,6 +13,9 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	app-emulation/docker
+	app-emulation/libnvidia-container
+	app-emulation/nvidia-container-runtime
+	app-emulation/nvidia-container-runtime-hook
 "
 
 src_prepare() {
