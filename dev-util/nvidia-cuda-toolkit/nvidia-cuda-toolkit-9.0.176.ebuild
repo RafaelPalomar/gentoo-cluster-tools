@@ -47,7 +47,7 @@ src_unpack() {
 src_prepare() {
 	local cuda_supported_gcc
 
-	cuda_supported_gcc="4.7 4.8 4.9 5.3 5.4 6.3 6.4 7.3"
+	cuda_supported_gcc="4.7 4.8 4.9 5.3 5.4 6.3 6.4"
 
 	sed \
 		-e "s:CUDA_SUPPORTED_GCC:${cuda_supported_gcc}:g" \
@@ -57,7 +57,6 @@ src_prepare() {
 }
 
 src_install() {
-
 	local i remove=( doc jre run_files install-linux.pl cuda-installer.pl )
 	local cudadir=/opt/cuda
 	local ecudadir="${EPREFIX}${cudadir}"
