@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <repositories version="1.0">
 <repo priority="50" status="unofficial">
-	<name>gentoo-IVS-cluster</name>
-	<description>IVS cluster infrastructure packages</description>
+	<name>gentoo-cluster-tools</name>
+	<description>Gentoo utility packages to create a kubernetes cluster with support for GPU loads</description>
 	<owner>
 		<email>rafael.palomar@rr-research.no</email>
-		<name>Oslo University Hospital</name>
+		<name>Rafael Palomar</name>
 	</owner>
-	<source type="git">git://github.com/TheInterventionCentre/gentoo-IVS-cluster</source>
+	<source type="git">git://github.com/RafaelPalomar/gentoo-cluster-tools</source>
 </repo>
 </repositories>
