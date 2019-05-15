@@ -19,12 +19,6 @@ RDEPEND="
 	dev-lang/go
 "
 
-echo -----------------------
-echo $PN
-echo $PV
-echo ${WORKDIR}/${PN}-${PV}-1/hook/nvidia-container-runtime-hook
-echo -----------------------
-
 src_unpack() {
 	default
 	mv ${WORKDIR}/nvidia-container-runtime-${PV}-1/hook/nvidia-container-runtime-hook ${S}
@@ -32,12 +26,12 @@ src_unpack() {
 
 src_prepare() {
 	eapply_user
+	mv ${WORKDIR}/${P}/vendor ${WORKDIR}/${P}/src
 	return
 }
 
 src_compile() {
 	pushd ${S} || die
-	GOPATH="${WORKDIR}/${P}:$(get_golibdir_gopath)" go get github.com/BurntSushi/toml || die
 	GOPATH="${WORKDIR}/${P}:$(get_golibdir_gopath)" go build -o ${PN} . || die
 	popd || die
 }
